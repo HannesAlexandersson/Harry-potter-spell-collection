@@ -1,6 +1,30 @@
+let instance = null;
 
-export const HouseManager = (() => {
-  let instance;
+class HouseManager {
+  constructor() {
+    if (!instance) {
+      this.configObject = {
+        darkMode: false,
+        colorTheme: 'light',
+        direction: 'ltr',
+      };
+      instance = this;
+      this.house = null;
+    }
+    return instance;
+  }
+
+  setHouse(house) {
+    this.house = house;
+}
+
+getHouse() {
+    return this.house;
+}
+}
+export const houseManager = new HouseManager();
+/* export const HouseManager = (() => {
+  let instance = null;
 
   function createInstance(house) {
     return {
@@ -56,5 +80,5 @@ export const HouseManager = (() => {
     }
   };
 })();
-
+ */
 
