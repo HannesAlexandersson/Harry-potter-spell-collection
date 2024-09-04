@@ -1,4 +1,4 @@
-
+// desing patterns - factory pattern 02. what patterns suits best? in this case I reckon enum table is the best
 export const trollTypes = {
   forestTroll: {
       name: "Forest Troll",

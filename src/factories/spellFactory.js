@@ -1,4 +1,4 @@
-
+// desing patterns - factory pattern 02. what patterns suits best? in this case I reckon Map is the best
 export const spellFactory = new Map();
 
 spellFactory.set('charm', (name) => ({

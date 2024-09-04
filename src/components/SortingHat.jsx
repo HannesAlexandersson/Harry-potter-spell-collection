@@ -3,30 +3,43 @@ import { houseManager } from '../singelton/HouseManager'
 
 
 function SortingHat(){
-  const [house, setHouse] = useState('');
-  const singletonInstance = HouseManager.getInstance();
+  //const [house, setHouse] = useState(houseManager.getHouse() || 'Gryffindor');  
+  const [house, setHouse] = useState('Hufflepuff');  
+
+  const [isHouseSelected, setIsHouseSelected] = useState(false);
+  
 
   const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 
-
-  const handleHouseSelection = () => {
-    if (!singletonInstance.house) {
-      houseManager.setHouse(house); // set the house in the singleton instance
-      setHouse(house); // set the house in the local state
+  useEffect(() => {    
+    if (houseManager.house) {
+      setHouse(houseManager.house);
+      setIsHouseSelected(true); // Disable house selection if house is already set
     }
-  };
+  }, []); 
 
+    
+  const handleHouseSelection = () => {
+    if (!isHouseSelected && house) {
+      houseManager.setHouse(house);
+      // Disable house selection if house is already set
+      setIsHouseSelected(true); 
+      Object.freeze(houseManager);
+    }
+  }; 
+
+  
 
   return(
     <>
     <div className="sortingHat">
 
-          <h1>Choose your house</h1>
+          <h2>Choose your house</h2>
           
           <select 
               onChange={(e) => setHouse(e.target.value)} 
               value={house}
-              disabled={singletonInstance.house !== undefined && singletonInstance.house !== ''}
+              disabled={houseManager.house !== null && houseManager.house !== ''}
             >
               <option value="">Select a house</option>
               {houses.map((houseS, index) => (
@@ -36,7 +49,7 @@ function SortingHat(){
           
             <button 
               onClick={handleHouseSelection}
-              disabled={singletonInstance.house !== undefined && singletonInstance.house !== ''}
+              disabled={houseManager.house !== null && houseManager.house !== ''}
             >
               Submit
             </button>

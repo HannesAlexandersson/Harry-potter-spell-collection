@@ -1,67 +1,31 @@
-import { useState, useEffect } from 'react'
-//import { HouseManager } from './singelton/HouseManager'
+import SpellList from './components/SpellList';
 import SortingHat from './components/SortingHat';
 import SpellManager from './components/SpellManager';
+import { SpellsProvider } from './contexts/spellContext';
 import './App.css'
 
 function App() {
-  const [house, setHouse] = useState('');
-  const [isHouseSelected, setIsHouseSelected] = useState(false);
-  const singletonInstance = HouseManager.getInstance();
-
-  const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']; */
-
-  useEffect(() => {    
-    if (singletonInstance.house) {
-      setHouse(singletonInstance.house);
-      setIsHouseSelected(true); // Disable house selection if house is already set
-    }
-  }, [singletonInstance]);
-
-  const handleHouseSelection = () => {
-    if (!isHouseSelected && house) {
-      HouseManager.setHouse(house);
-      setIsHouseSelected(true); // Disable further selections immediately after the users has selected a house
-      Object.freeze(HouseManager);
-    }
-  }; */
 
 
+/*
+  Any component wrapped by the SpellsProvider can access the spells stored in context. 
+  For example, a SpellList component can use useSpells to access the list of spells 
+  and render them.
+*/
 
   return (
     <>
-   
-     <div className="sortingHat">
+    <SpellsProvider>
+      <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
+    <SortingHat />     
 
-      <h1>Choose your house</h1>
-      
-      <select 
-          onChange={(e) => setHouse(e.target.value)} 
-          value={house}
-          disabled={singletonInstance.house !== undefined && singletonInstance.house !== ''}
-        >
-          <option value="">Select a house</option>
-          {houses.map((houseS, index) => (
-            <option key={index} value={houseS}>{houseS}</option>
-          ))}
-        </select>
-      
-        <button 
-          onClick={handleHouseSelection}
-          disabled={singletonInstance.house !== undefined && singletonInstance.house !== ''}
-        >
-          Submit
-        </button>      
-     </div>
-
-      {house && <p>You have been sorted into {house}</p>}
-
-      <div className='spellmanager'>
-          
-          <SpellManager />
-        
-        
+      <div className='spellmanager'>          
+          <SpellManager />  
       </div>
+      <div className='spelllist'>        
+          <SpellList />
+      </div>
+    </SpellsProvider>
     </>
   )
 }
