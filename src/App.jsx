@@ -5,21 +5,23 @@ import './App.css'
 
 function App() {
   const [house, setHouse] = useState('');
+  const [isHouseSelected, setIsHouseSelected] = useState(false);
   const singletonInstance = HouseManager.getInstance();
 
   const houses = ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin'];
 
-  /* useEffect(() => {    
+  useEffect(() => {    
     if (singletonInstance.house) {
       setHouse(singletonInstance.house);
-      
+      setIsHouseSelected(true); // Disable house selection if house is already set
     }
-  }, [singletonInstance]); */
+  }, [singletonInstance]);
 
   const handleHouseSelection = () => {
-    if (!singletonInstance.house) {
-      HouseManager.setHouse(house); // set the house in the singleton instance
-      setHouse(house); // set the house in the local state
+    if (!isHouseSelected && house) {
+      HouseManager.setHouse(house);
+      setIsHouseSelected(true); // Disable further selections immediately after the users has selected a house
+      Object.freeze(HouseManager);
     }
   };
 
@@ -27,7 +29,7 @@ function App() {
 
   return (
     <>
-    
+   
      <div className="sortingHat">
 
       <h1>Choose your house</h1>
@@ -48,15 +50,15 @@ function App() {
           disabled={singletonInstance.house !== undefined && singletonInstance.house !== ''}
         >
           Submit
-        </button>
-      
+        </button>      
      </div>
+
       {house && <p>You have been sorted into {house}</p>}
 
       <div className='spellmanager'>
-          {singletonInstance.house === null && 
+          
           <SpellManager />
-        }
+        
         
       </div>
     </>
