@@ -8,13 +8,15 @@ function Character({ name }) {
 
   const moveCharacter = () => {
     if (selectedRoom) {
-      updateLocation(name, selectedRoom); // Move character and check for notifications
-      setSelectedRoom(''); // Reset room selection
+      // Call the updateLocation function to move the character and handle notifications
+      updateLocation(name, selectedRoom);
+      // Reset room selection after moving
+      setSelectedRoom('');
     } else {
+      // Alert if no room is selected
       alert("Please select a room for the character to move to.");
     }
   };
-
 
   return (
     <div className='container'>
