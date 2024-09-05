@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 /*
   We created a SpellsContext using the React.createContext() function. 
   This context allows different components to access the spells data and 
