@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { useLocation } from '../contexts/locationContext';
 import { rooms } from '../../lib/rooms';
 
+//any changes where the character moves room triggers the state change, 
 function Character({ name }) {
   const { updateLocation } = useLocation();
   const [selectedRoom, setSelectedRoom] = useState('');
 
   const moveCharacter = () => {
     if (selectedRoom) {
-      // Call the updateLocation function to move the character and handle notifications
       updateLocation(name, selectedRoom);      
       setSelectedRoom('');
     } else {
-      // Alert if no room is selected
       alert("Please select a room for the character to move to.");
     }
   };
@@ -21,7 +20,7 @@ function Character({ name }) {
     <div className='container'>
       <h3>{name}</h3>
       
-      {/* Dropdown for selecting a room */}
+      
       <select 
         value={selectedRoom} 
         onChange={(e) => setSelectedRoom(e.target.value)}
@@ -32,7 +31,7 @@ function Character({ name }) {
         ))}
       </select>
       
-      {/* Button to move character */}
+      
       <button onClick={moveCharacter}>Move {name} to {selectedRoom}</button>
     </div>
   );

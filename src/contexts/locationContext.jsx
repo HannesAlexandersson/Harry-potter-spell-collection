@@ -7,70 +7,21 @@ export function LocationProvider({ children }) {
   const [rooms, setRooms] = useState(initialRooms);
   const [notifications, setNotifications] = useState([]);
 
-  /* const updateLocation = (characterName, newRoomName) => {
-    // Check if the room exists
-    if (!rooms[newRoomName]) {
-      alert(`The room "${newRoomName}" does not exist.`);
-      return;
-    }
 
-    // Get the updated rooms
-    const updatedRooms = { ...rooms };
-    let notification = '';
+  //const allowedToShareRoom = new Set(['Harry', 'Hermione']); 
+  const characterToPrevent = 'Snape'; 
 
-    // Find the current room of the character and remove them from it
-    let currentRoomName = null;
-    for (const roomName in updatedRooms) {
-      if (updatedRooms[roomName].charactersInRoom.includes(characterName)) {
-        currentRoomName = roomName;
-        updatedRooms[roomName].charactersInRoom = updatedRooms[roomName].charactersInRoom.filter(char => char !== characterName);
-        break;
-      }
-    }
-
-    // Check if the character is already in the new room
-    if (currentRoomName === newRoomName) {
-      alert(`${characterName} is already in the ${newRoomName}.`);
-      return;
-    }
-
-    // Check if the move is possible (e.g., room capacity, restrictions)
-    // For simplicity, we assume all moves are possible unless specified otherwise
-    // Add character to the new room and check for existing characters
-    if (!updatedRooms[newRoomName].charactersInRoom.includes(characterName)) {
-      const charactersInNewRoom = updatedRooms[newRoomName].charactersInRoom;
-      if (charactersInNewRoom.length > 0) {
-        notification = `${characterName}!! ${charactersInNewRoom.join(', ')} are in the ${newRoomName}!!`;
-        alert(notification);  // Notify the user
-      }
-      
-      updatedRooms[newRoomName].charactersInRoom.push(characterName);
-      setRooms(updatedRooms);
-
-      // Update notifications state
-      if (notification) {
-        setNotifications(prevNotifications => [...prevNotifications, notification]);
-      }
-    } else {
-      alert(`${characterName} cannot be moved to ${newRoomName} because they are already there.`);
-    }
-  }; */
-
-  const allowedToShareRoom = new Set(['Harry', 'Hermione']); // Characters allowed to share rooms
-  const characterToPrevent = 'Snape'; // Character that should not share rooms
-
+  //transporter methods
   const updateLocation = (characterName, newRoomName) => {
-    // Check if the room exists
     if (!rooms[newRoomName]) {
       alert(`The room "${newRoomName}" does not exist.`);
       return;
     }
 
-    // Get the updated rooms
+    //get the new rooom states
     const updatedRooms = { ...rooms };
     let notification = '';
-
-    // Find the current room of the character and remove them from it
+    //see what room the char is in now and remove the char from the room
     let currentRoomName = null;
     for (const roomName in updatedRooms) {
       if (updatedRooms[roomName].charactersInRoom.includes(characterName)) {
@@ -79,37 +30,34 @@ export function LocationProvider({ children }) {
         break;
       }
     }
-
-    // If the character is already in the new room
+    //check if the char is trying to move to the room they are already in
     if (currentRoomName === newRoomName) {
       alert(`${characterName} is already in the ${newRoomName}.`);
       return;
     }
 
-    // Check if the new room already has characters
+    //see what characters if any are in the new room
     const charactersInNewRoom = updatedRooms[newRoomName].charactersInRoom;
-
-    // Notification setup
+    //see if the move is possible based on what chars are in the new room IE if Snape is in the room
     if (charactersInNewRoom.length > 0) {
-      // Check if any of the characters in the room is Snape
       if (charactersInNewRoom.includes(characterToPrevent) ) {
         alert(`Move denied! ${characterToPrevent} is in the ${newRoomName}.`);
         return;
       }
       
       notification = `${characterName}!! ${charactersInNewRoom.join(', ')} are in the ${newRoomName}!!`;
-      alert(notification);  // Notify the user
+      alert(notification);  
     } else {
-      // No one else in the room
+      
       notification = `${characterName} has entered the ${newRoomName}.`;
-      alert(notification);  // Notify the user
+      alert(notification);  
     }
 
-    // Add character to the new room
+    
     updatedRooms[newRoomName].charactersInRoom.push(characterName);
     setRooms(updatedRooms);
 
-    // Update notifications state
+    
     setNotifications(prevNotifications => [...prevNotifications, notification]);
   };
 

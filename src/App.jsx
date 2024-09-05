@@ -2,6 +2,7 @@ import SpellList from './components/SpellList';
 import SortingHat from './components/SortingHat';
 import SpellManager from './components/SpellManager';
 import Character from './components/Character';
+import { characters } from '../lib/characters'
 import MaraudersMap from './components/MaraudersMap';
 import { SpellsProvider } from './contexts/spellContext';
 import { LocationProvider } from './contexts/locationContext';
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <>
-    <LocationProvider>
+    
       <SpellsProvider>
         <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
         <SortingHat />     
@@ -29,16 +30,23 @@ function App() {
         <div className='spelllist'>        
             <SpellList />
         </div>
+        <LocationProvider>
         <div className='mapChars'>
-          <Character name="Harry" />
-          <Character name="Hermione" />
-          <Character name="Snape" />
+          {Object.values(characters).map((char, index) => (
+            <Character key={index} name={char.name} />
+          ))}
         </div>
-        <div className='mauradersmap'>
-          <MaraudersMap />
-        </div>
+         {/*  <div className='mapChars'>
+            <Character name="Harry" />
+            <Character name="Hermione" />
+            <Character name="Snape" />
+          </div> */}
+          <div className='mauradersmap'>
+            <MaraudersMap />
+          </div>
+        </LocationProvider>
       </SpellsProvider>
-    </LocationProvider>
+    
     </>
   )
 }

@@ -27,7 +27,7 @@ function SpellManager() {
       <div className="spellManager">
         <h2>Create your spell</h2>
         
-        {/* Dropdown to select spell type */}
+        
         <select 
           value={spellType} 
           onChange={(e) => setSpellType(e.target.value)}
@@ -39,7 +39,7 @@ function SpellManager() {
           <option value="trollDestroyer">Troll Destroyer</option>          
         </select>
         
-        {/* Input field to set spell name */}
+        
         <input 
           type="text" 
           placeholder="Enter spell name"
@@ -47,7 +47,7 @@ function SpellManager() {
           onChange={(e) => setSpellName(e.target.value)}
         />
 
-        {/* Submit button to create spell */}
+        
         <button onClick={handleCreateSpell}>Submit</button>
       </div>
     </>

@@ -1,7 +1,7 @@
 import { useLocation } from '../contexts/locationContext';
 
 function MaraudersMap() {
-  //const { locations } = useLocation(); // Access the locations from context
+  //the rooms are the SUBJECT/PUBLISHER and they are sending notifications 
   const { rooms, notifications } = useLocation();
 
   return (
