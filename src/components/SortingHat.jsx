@@ -14,7 +14,7 @@ function SortingHat(){
   useEffect(() => {    
     if (houseManager.house) {
       setHouse(houseManager.house);
-      setIsHouseSelected(true); // Disable house selection if house is already set
+      setIsHouseSelected(true);
     }
   }, []); 
 

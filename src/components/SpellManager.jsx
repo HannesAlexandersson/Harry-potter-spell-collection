@@ -8,12 +8,12 @@ function SpellManager() {
   const { addSpell } = useSpells();
 
   const handleCreateSpell = () => {
-    if (spellType && spellName) {  // Ensure both a type and name are selected
+    if (spellType && spellName) {
       try {
-        const newSpell = createSpell(spellType, spellName);  // Create the spell using factory
-        addSpell(newSpell);  // Add the spell to the context
-        setSpellType('');  // Reset the spell type input
-        setSpellName('');  // Reset the spell name input
+        const newSpell = createSpell(spellType, spellName);
+        addSpell(newSpell);
+        setSpellType('');
+        setSpellName('');
       } catch (error) {
         console.error(error.message);
       }
