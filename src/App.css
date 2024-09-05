@@ -1,5 +1,6 @@
 #root {
-  max-width: 1280px;
+  max-width: 1920px;
+  width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -48,4 +49,31 @@
   flex-direction: column;
   gap: 1em;
   
+}
+.mapChars{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1em;
+}
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.mapContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.mauradersmap{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }

@@ -1,0 +1,1 @@
+//A component that listens for changes in entities' locations (e.g., a Marauder's Map).

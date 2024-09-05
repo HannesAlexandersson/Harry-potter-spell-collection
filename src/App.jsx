@@ -1,7 +1,10 @@
 import SpellList from './components/SpellList';
 import SortingHat from './components/SortingHat';
 import SpellManager from './components/SpellManager';
+import Character from './components/Character';
+import MaraudersMap from './components/MaraudersMap';
 import { SpellsProvider } from './contexts/spellContext';
+import { LocationProvider } from './contexts/locationContext';
 import './App.css'
 
 function App() {
@@ -15,17 +18,27 @@ function App() {
 
   return (
     <>
-    <SpellsProvider>
-      <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
-    <SortingHat />     
+    <LocationProvider>
+      <SpellsProvider>
+        <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
+        <SortingHat />     
 
-      <div className='spellmanager'>          
-          <SpellManager />  
-      </div>
-      <div className='spelllist'>        
-          <SpellList />
-      </div>
-    </SpellsProvider>
+        <div className='spellmanager'>          
+            <SpellManager />  
+        </div>
+        <div className='spelllist'>        
+            <SpellList />
+        </div>
+        <div className='mapChars'>
+          <Character name="Harry" />
+          <Character name="Hermione" />
+          <Character name="Snape" />
+        </div>
+        <div className='mauradersmap'>
+          <MaraudersMap />
+        </div>
+      </SpellsProvider>
+    </LocationProvider>
     </>
   )
 }
