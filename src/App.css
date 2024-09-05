@@ -41,7 +41,14 @@
 .read-the-docs {
   color: #888;
 }
-
+.list{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
 .spellManager, .sortingHat{
   display: flex;
   justify-content: center;

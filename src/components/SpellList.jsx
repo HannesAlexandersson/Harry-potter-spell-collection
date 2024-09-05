@@ -8,7 +8,7 @@ function SpellList(){
  return(
     <div>
       <h2>Your Spells</h2>
-      <ol>
+      <ol className="list">
         {spells.map((spell, index) => (
           <li key={index}>
             {spell.name} ({spell.type})

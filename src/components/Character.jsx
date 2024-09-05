@@ -8,12 +8,13 @@ function Character({ name }) {
 
   const moveCharacter = () => {
     if (selectedRoom) {
-      updateLocation(name, selectedRoom); // Move character to the selected room
-      setSelectedRoom(''); // Reset room selection after moving
+      updateLocation(name, selectedRoom); // Move character and check for notifications
+      setSelectedRoom(''); // Reset room selection
     } else {
       alert("Please select a room for the character to move to.");
     }
   };
+
 
   return (
     <div className='container'>
@@ -25,7 +26,7 @@ function Character({ name }) {
         onChange={(e) => setSelectedRoom(e.target.value)}
       >
         <option value="">Select a room</option>
-        {rooms.map((room, index) => (
+        {Object.keys(rooms).map((room, index) => (
           <option key={index} value={room}>{room}</option>
         ))}
       </select>
