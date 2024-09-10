@@ -20,15 +20,17 @@ function App() {
     <>
     <LocationProvider>
       <SpellsProvider>
+      <div className="main">
         <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
         <SortingHat />     
-
-        <div className='spellmanager'>          
-            <SpellManager />  
+        <div className="spellBox">
+          <div className='spellmanager'>          
+              <SpellManager />  
+          </div>
         </div>
-        <div className='spelllist'>        
-            <SpellList />
-        </div>
+          <div className='spelllist'>        
+              <SpellList />
+          </div>
         <div className='mapChars'>
           <Character name="Harry" />
           <Character name="Hermione" />
@@ -36,6 +38,7 @@ function App() {
         </div>
         <div className='mauradersmap'>
           <MaraudersMap />
+        </div>
         </div>
       </SpellsProvider>
     </LocationProvider>

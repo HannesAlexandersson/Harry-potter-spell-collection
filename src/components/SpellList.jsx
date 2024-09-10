@@ -1,7 +1,17 @@
+import { useState } from 'react'
 import { useSpells } from "../contexts/spellContext";
 
 function SpellList() {
-  const { spells } = useSpells(); // Use the custom hook to access the spells context
+  const { spells } = useSpells(); //use the custom hook to access the spells context
+  const [expandedSpell, setExpandedSpell] = useState(null); 
+
+  const toggleSpell = (index) => {
+    if (expandedSpell === index) {
+      setExpandedSpell(null); 
+    } else {
+      setExpandedSpell(index);
+    }
+  };
 
   return (
     <div>
@@ -9,7 +19,22 @@ function SpellList() {
       <ol className="list">
         {spells.map((spell, index) => (
           <li key={index}>
-            {spell.name} ({spell.type}) - Strength: {spell.strength}, Range: {spell.range}, Duration: {spell.duration}
+            <button className='spellButton'
+              onClick={() => toggleSpell(index)}               
+            >
+              {spell.name}
+            </button>
+            {expandedSpell === index && (
+              <div className="spell-details" >
+                <p>Type: {spell.type}</p>
+                <p>Strength: {spell.strength}</p>
+                <p>Range: {spell.range}</p>
+                <p>Duration: {spell.duration}</p>
+                {spell.type === 'Transfiguration' &&
+                  <p>Transformation: {spell.transformation}</p>
+                }
+              </div>
+            )}
           </li>
         ))}
       </ol>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSpells } from "../contexts/spellContext";
 import { createSpell } from '../factories/spellFactory';
-import { addStrength, addRange, addDuration } from '../decoraters/spellDecorator'
+import { addStrength, addRange, addDuration, addTransformation } from '../decoraters/spellDecorator'
 
 function SpellManager() {
   const [spellType, setSpellType] = useState('');
@@ -12,24 +12,31 @@ function SpellManager() {
   const [strength, setStrength] = useState();
   const [range, setRange] = useState('medium');
   const [duration, setDuration] = useState('');
+  const [ transformation, setTransformation] = useState('');
 
   const handleCreateSpell = () => {
     if (spellType && spellName) {
-      try {
+      try { //decorate the spell using the decorater
         let newSpell = createSpell(spellType, spellName);
         newSpell = addStrength(newSpell, strength);
         newSpell = addRange(newSpell, range);
         newSpell = addDuration(newSpell, duration);
 
-        // Add the decorated spell to the context        
+        if(spellType === 'transfiguration'){
+          newSpell = addTransformation(newSpell, transformation)
+        }
+
+        //now we add the decorated spell into the context        
         addSpell(newSpell);
 
-        // Reset the form
+        
+        //we need to reset the form after
         setSpellType('');
         setSpellName('');
         setStrength();
         setRange('medium');
         setDuration('');
+        setTransformation('');
       } catch (error) {
         console.error(error.message);
       }
@@ -55,7 +62,7 @@ function SpellManager() {
           <option value="trollDestroyer">Troll Destroyer</option>          
         </select>
         
-        {/* Input field to set spell name */}
+       
         <input 
           type="text" 
           placeholder="Enter spell name"
@@ -63,7 +70,16 @@ function SpellManager() {
           onChange={(e) => setSpellName(e.target.value)}
         />
 
-        {/* Additional fields for decorator properties */}
+
+        {spellType === 'transfiguration' &&
+          <input
+            type='text'
+            placeholder="Enter the transformation"
+            value={transformation}
+            onChange={(e) => setTransformation(e.target.value)}
+          />
+        }
+      
         <input 
           type="number" 
           placeholder="Enter strength"

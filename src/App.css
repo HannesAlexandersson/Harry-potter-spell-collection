@@ -84,3 +84,15 @@
   flex-direction: column;
   gap: 1em;
 }
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.spellBox{
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+}
