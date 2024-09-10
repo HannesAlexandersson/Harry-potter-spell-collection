@@ -9,7 +9,7 @@ function SpellManager() {
   const { addSpell } = useSpells();
 
   //states for the decorator
-  const [strength, setStrength] = useState();
+  const [strength, setStrength] = useState('');
   const [range, setRange] = useState('medium');
   const [duration, setDuration] = useState('');
   const [ transformation, setTransformation] = useState('');
@@ -29,11 +29,11 @@ function SpellManager() {
         //now we add the decorated spell into the context        
         addSpell(newSpell);
 
-        
+
         //we need to reset the form after
         setSpellType('');
         setSpellName('');
-        setStrength();
+        setStrength('');
         setRange('medium');
         setDuration('');
         setTransformation('');
