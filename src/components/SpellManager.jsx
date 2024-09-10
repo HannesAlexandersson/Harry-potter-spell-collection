@@ -1,19 +1,35 @@
 import { useState } from 'react';
 import { useSpells } from "../contexts/spellContext";
 import { createSpell } from '../factories/spellFactory';
+import { addStrength, addRange, addDuration } from '../decoraters/spellDecorator'
 
 function SpellManager() {
   const [spellType, setSpellType] = useState('');
   const [spellName, setSpellName] = useState('');
   const { addSpell } = useSpells();
 
+  //states for the decorator
+  const [strength, setStrength] = useState();
+  const [range, setRange] = useState('medium');
+  const [duration, setDuration] = useState('');
+
   const handleCreateSpell = () => {
     if (spellType && spellName) {
       try {
-        const newSpell = createSpell(spellType, spellName);
+        let newSpell = createSpell(spellType, spellName);
+        newSpell = addStrength(newSpell, strength);
+        newSpell = addRange(newSpell, range);
+        newSpell = addDuration(newSpell, duration);
+
+        // Add the decorated spell to the context        
         addSpell(newSpell);
+
+        // Reset the form
         setSpellType('');
         setSpellName('');
+        setStrength();
+        setRange('medium');
+        setDuration('');
       } catch (error) {
         console.error(error.message);
       }
@@ -45,6 +61,31 @@ function SpellManager() {
           placeholder="Enter spell name"
           value={spellName}
           onChange={(e) => setSpellName(e.target.value)}
+        />
+
+        {/* Additional fields for decorator properties */}
+        <input 
+          type="number" 
+          placeholder="Enter strength"
+          value={strength}
+          onChange={(e) => setStrength(e.target.value)}
+        />
+        
+        <label htmlFor="range">Select Spell Range:</label>
+        <select           
+          value={range} 
+          onChange={(e) => setRange(e.target.value)}
+        >
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+        </select>
+        
+        <input 
+          type="text" 
+          placeholder="Enter duration"
+          value={duration}
+          onChange={(e) => setDuration(e.target.value)}
         />
 
         {/* Submit button to create spell */}
