@@ -1,55 +1,33 @@
-// desing patterns - factory pattern 02. what patterns suits best? in this case I reckon enum table is the best
-export const trollTypes = {
-  forestTroll: {
-      name: "Forest Troll",
-      health: 150,
-      damage: 20,
-      canTalk: true,
-      isDead: false,
-  },
-  mountainTroll: {
-      name: "Mountain Troll",
-      health: 200,
-      damage: 30,
-      canTalk: false,
-      isDead: false,
-  },
-  swampTroll: {
-      name: "Swamp Troll",
-      health: 180,
-      damage: 25,
-      canTalk: true,
-      isDead: false,
-  }
-};
 
-export function createTroll(type) {
-  
-  const troll = { ...trollTypes[type] };
-  
-  troll.takeDamage = function(damage) {
-      this.health -= damage;
-      console.log(`${this.name} takes ${damage} damage!`);
-      if (this.health <= 0) {
-        console.log(`${this.name} has died!`);
-          this.isDead = true;
-      }
-  };
-  troll.attack = function() {
-      console.log(`${this.name} attacks with ${this.damage} damage!`);
-  };
+export const trollFactory = new Map();
 
-  troll.checkIfDead = function() {
-      return this.isDead ? `${this.name} is dead.` : `${this.name} is alive.`;
-  };
+trollFactory.set('Forest Troll', (name) => ({
+    name: name || 'The Forest Troll',
+    health: 150,
+    damage: 20,
+    isDead: false,
+}));
 
-  troll.speak = function() {
-      if (this.canTalk) {
-          console.log(`${this.name} says: "Grrr... I will crush you!"`);
-      } else {
-          console.log(`${this.name} remains silent.`);
-      }
-  };
+trollFactory.set('Mountain Troll', (name) => ({
+    name: name || 'The Mountain Troll',
+    health: 200,
+    damage: 10,
+    isDead: false,
+}))
 
-  return troll;
+trollFactory.set('Svamp Troll', (name) => ({
+  name: name || 'The Svamp Troll',
+  health: 100,
+  damage: 30,
+  isDead: false,
+}))
+
+//actual function to create a basic troll with a name and a type
+export function createTroll(trollType, name) {
+    const trollCreator = trollFactory.get(trollType);
+    if(!trollCreator) {
+        throw new Error(`unknown troll type: ${trollType}`);
+    }
+    return trollCreator(name);
 }
+

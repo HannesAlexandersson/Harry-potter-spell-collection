@@ -3,9 +3,13 @@ import SortingHat from './components/SortingHat';
 import SpellManager from './components/SpellManager';
 import Character from './components/Character';
 import MaraudersMap from './components/MaraudersMap';
+import TrollManager from './components/TrollManager';
 import { SpellsProvider } from './contexts/spellContext';
 import { LocationProvider } from './contexts/locationContext';
 import './App.css'
+import { TrollsProvider } from './contexts/trollContext';
+import TrollList from './components/TrollList';
+import Arena from './components/Arena';
 
 function App() {
 
@@ -20,6 +24,7 @@ function App() {
     <>
     <LocationProvider>
       <SpellsProvider>
+        <TrollsProvider>
       <div className="main">
         <div className='header'><h1 className='title'>Hogwarts school of magic</h1></div>
         <SortingHat />     
@@ -40,6 +45,16 @@ function App() {
           <MaraudersMap />
         </div>
         </div>
+
+        <div className='trolls'>
+          <TrollManager />
+          <TrollList />
+        </div>
+
+        <div className='arena'>
+          <Arena />
+        </div>
+        </TrollsProvider>
       </SpellsProvider>
     </LocationProvider>
     </>

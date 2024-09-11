@@ -1,19 +1,36 @@
 import { useState } from 'react';
-import { useSpells } from "../contexts/spellContext";
-import { createSpell } from '../factories/spellFactory';
-import { addStrength, addRange, addDuration, addTransformation } from '../decoraters/spellDecorator'
+import { useSpellFacade } from '../facades/ManagerFacade'
+
 
 function SpellManager() {
   const [spellType, setSpellType] = useState('');
   const [spellName, setSpellName] = useState('');
-  const { addSpell } = useSpells();
+  //const { addSpell } = useSpells();
 
   //states for the decorator
   const [strength, setStrength] = useState('');
   const [range, setRange] = useState('medium');
   const [duration, setDuration] = useState('');
   const [ transformation, setTransformation] = useState('');
+  //the facade for creating spells from the facade manager
+  const { createAndDecorateSpell } = useSpellFacade();
 
+  const handleCreateSpell = () => {
+   //use the facade to create the sell
+    createAndDecorateSpell(spellType, spellName, strength, range, duration, transformation);
+
+    //reset form
+    setSpellType('');
+    setSpellName('');
+    setStrength('');
+    setRange('medium');
+    setDuration('');
+    setTransformation('');
+    
+  };
+
+
+  /* ORIGINAL CODE
   const handleCreateSpell = () => {
     if (spellType && spellName) {
       try { //decorate the spell using the decorater
@@ -43,7 +60,7 @@ function SpellManager() {
     } else {
       alert('Please select a spell type and provide a name.');
     }
-  };
+  }; */
 
   return(
     <> 

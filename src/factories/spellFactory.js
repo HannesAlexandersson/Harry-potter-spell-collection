@@ -20,8 +20,7 @@ spellFactory.set('trollDestroyer', (name) => ({
   type: 'Troll Destroyer',
   name: name || 'Unnamed Troll Destroyer',
 }));
-
-// Function to create a spell
+//actual function to create a basic spell with a name and a type
 export function createSpell(spellType, name) {
   const spellCreator = spellFactory.get(spellType.toLowerCase());
   if (!spellCreator) {
