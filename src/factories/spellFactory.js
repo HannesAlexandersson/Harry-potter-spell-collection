@@ -17,12 +17,12 @@ spellFactory.set('transfiguration', (name) => ({
 }));
 
 spellFactory.set('trollDestroyer', (name) => ({
-  type: 'Troll Destroyer',
+  type: 'TrollDestroyer',
   name: name || 'Unnamed Troll Destroyer',
 }));
 //actual function to create a basic spell with a name and a type
 export function createSpell(spellType, name) {
-  const spellCreator = spellFactory.get(spellType.toLowerCase());
+  const spellCreator = spellFactory.get(spellType);
   if (!spellCreator) {
       throw new Error(`Unknown spell type: ${spellType}`);
   }
